@@ -9,26 +9,28 @@ rpc_password = dotenv_values('.env').get('RPC_PASSWORD')
 rpc_url = "http://localhost:8332"
 
 # Define the parameters for the estimateSmartFee RPC call
-conf_target = 6
-estimate_mode = "CONSERVATIVE"
+def call(conf_target, estimate_mode):
+    # Build the JSON-RPC request
+    request_data = {
+        "jsonrpc": "1.0",
+        "id": "your_request_id",
+        "method": "estimatesmartfee",
+        "params": [conf_target, estimate_mode]
+    }
 
-# Build the JSON-RPC request
-request_data = {
-    "jsonrpc": "1.0",
-    "id": "your_request_id",
-    "method": "estimatesmartfee",
-    "params": [conf_target, estimate_mode]
-}
+    # Send the request and parse the JSON response
+    response = requests.post(rpc_url, json.dumps(request_data), auth=(rpc_user, rpc_password))
 
-# Send the request and parse the JSON response
-response = requests.post(rpc_url, json.dumps(request_data), auth=(rpc_user, rpc_password))
-result = json.loads(response.text)
+    feerate =  json.loads(response.text).get('result').get('feerate')
+    return feerate
 
-# Print the estimated fee rate in BTC/kB
-print(result)
-# print(f"Estimated fee rate: {result['feerate']} BTC/kB")
+high_p = call(1, "CONSERVATIVE") 
+medium_p = call(6, "CONSERVATIVE")
+low_p = call(20, "CONSERVATIVE")
 
 
+
+print(high_p, medium_p, low_p)
 # using a library
 # from bitcoinrpc import BitcoinRPC
 # import asyncio
