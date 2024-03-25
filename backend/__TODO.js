@@ -1,6 +1,6 @@
 // TODO list for the backend
 // *this is a JS file with comments so that VS Code shows
-// *colors via better commentsextension
+// *colors via better comments extension
 
 // !Inplement fee cronjob
 //    Establish RCP connection to core on device.
