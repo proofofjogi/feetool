@@ -5,7 +5,7 @@
 // !Main route:
 //   Display fees compared to historical
 //     short term, medium term, long term
-//     get via page.server.ts pb call, export data via load function
+//  // get via page.server.ts pb call, export data via load function
 //  // add tailwind, daisyui
 //   PWA via svelte head
 //   let users enable notifications
