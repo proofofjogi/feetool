@@ -1,7 +1,7 @@
 <script lang="ts">
-	// script initialized
+	// data from server load function
 	export let data;
-	console.log(data.feeData);
+	// console.log(data.feeData);
 </script>
 
 <svelte:head>
