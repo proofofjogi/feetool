@@ -9,28 +9,33 @@ rpc_password = dotenv_values('.env').get('RPC_PASSWORD')
 rpc_url = "http://localhost:8332"
 
 # Define the parameters for the estimateSmartFee RPC call
-def call(conf_target, estimate_mode):
+def get_feerate(conf_target, estimate_mode):
     # Build the JSON-RPC request
     request_data = {
         "jsonrpc": "1.0",
-        "id": "your_request_id",
         "method": "estimatesmartfee",
         "params": [conf_target, estimate_mode]
     }
 
     # Send the request and parse the JSON response
     response = requests.post(rpc_url, json.dumps(request_data), auth=(rpc_user, rpc_password))
+    
+    print(response.text)
 
     feerate =  json.loads(response.text).get('result').get('feerate')
     return feerate
 
-high_p = call(1, "CONSERVATIVE") 
-medium_p = call(6, "CONSERVATIVE")
-low_p = call(20, "CONSERVATIVE")
+confirm_targets = [1,3,6,20]
+
+for block_num in confirm_targets:
+    result = get_feerate(block_num, "CONSERVATIVE")
+    
+    # store data now, needs pocketbase to work
+    print(result)
 
 
 
-print(high_p, medium_p, low_p)
+
 # using a library
 # from bitcoinrpc import BitcoinRPC
 # import asyncio
