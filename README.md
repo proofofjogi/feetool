@@ -1,6 +1,6 @@
 # What is feetool?
 
-Feetool is a tool that helps you understand if bitcoin transaction fees are high or low or anything in between compared to what they have been before.
+Feetool is a tool that is going to help you understand if bitcoin transaction fees are high or low or anything in between compared to what they have been before.
 
 If you do frequent bitcoin transactions this tool might help you.
 
@@ -8,7 +8,9 @@ Feetool is FOSS and will remain FOSS forever.
 
 ## Project status
 
-Idea stage. No code has been written
+Frontend has some code written for simple display of the latest fee rate. That's the initial hosted version. Not very useful but that's because the tool needs to gather data first. We need a baseline to compare against.
+
+This isn't hosted anywhere yet either.
 
 ## Project specs:
 
