@@ -23,8 +23,11 @@ def get_feerate(conf_target, estimate_mode):
     )
 
     # return feerate
-    feerate = json.loads(response.text).get('result').get('feerate')
-    return feerate
+    btc_feerate = json.loads(response.text).get('result').get('feerate')
+    # convert btc/kbyte to sats/vbyte
+    sat_feerate = btc_feerate * 100000000 / 1000
+    sat_feerate = int(sat_feerate)
+    return sat_feerate
 
 
 # instantiate pb client
@@ -41,9 +44,21 @@ pb.admins.auth_with_password(admin_user, admin_password)
 confirm_targets = [1,3,6,20]
 fee_data = []
 for block_num in confirm_targets:
-    # get data from core rpc:
-    fee_rate = get_feerate(block_num, "CONSERVATIVE")
-    # chuck data to list
+    # get data from core rpc, conservative estimate:
+    fee_rate = get_feerate(
+        block_num, "CONSERVATIVE"
+    )
+    # store data
     pb.collection("fee_data").create(
-        {"target_blocks" : block_num, "fee_rate": fee_rate,})
+        {"target_blocks" : block_num, "fee_rate": fee_rate, "type": "CONSERVATIVE"}
+    )
+
+    # get data from core rpc, economical estimate:
+    fee_rate = get_feerate(
+        block_num, "ECONOMICAL"
+    )
+    # store data
+    pb.collection("fee_data").create(
+        {"target_blocks" : block_num, "fee_rate": fee_rate, "type": "ECONOMICAL"}
+    )
 
