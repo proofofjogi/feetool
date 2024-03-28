@@ -8,9 +8,11 @@ export async function load() {
 	pb.admins.authWithPassword(PB_ADMIN_USERNAME, PB_ADMIN_PASSWORD);
 
 	// !Query data
-	const feeData = await pb.collection('fee_data').getFullList({
+	const feeData = await pb.collection('fee_data').getList(1, 4, {
 		sort: '-created'
 	});
+	const items = feeData.items;
+
 	// !send data to frontend
-	return { feeData };
+	return { items };
 }
