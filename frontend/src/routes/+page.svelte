@@ -25,7 +25,7 @@
 				{#each latestFees as feeData}
 					<div class="flex justify-between gap-3">
 						<div>{feeData.target_blocks}</div>
-						<div>{parseInt(feeData.fee_rate)} sats/vbyte</div>
+						<div class="font-mono">{parseInt(feeData.fee_rate)} sat/vbyte</div>
 					</div>
 				{/each}
 			</div>
